@@ -67,12 +67,95 @@ memory/ の feedback_*.md から安定したルールをここに集約してい
 5. **スプリント振り返りを実施し `tasks/retrospective-YYYY-MM-DD-SprintX.md` に保存**
    - ① 良かった点、② 問題になった点と再発防止策、③ ルール変更提案
    - ④ 往復数サマリー（スプリント平均・最多タスクと原因）
-6. 実機（Pixel 8 Pro）で受入条件を手動検証し OK を確認してから「Sprint X 完了です」と報告
+6. 実機（Pixel 8 Pro）で受入条件を手動検証し OK を確認する
+7. **作業ブランチを master にマージしてコミット**（後述「Git 管理」参照）
+8. 「Sprint X 完了です」と報告
 
 ### 仕様変更の管理
 
 - 仕様変更は既存文書を黙って上書きせず、変更内容を会話で確認してから反映する
 - 変更が発生したら `task-list.md` のコメント記入と UC 文書更新を同時に行う
+
+---
+
+## Git 管理
+
+### ブランチ戦略
+
+| ブランチ名 | 用途 | ルール |
+|---|---|---|
+| `master` | リリース基準点 | 常にビルド可能・テスト全PASS・実機動作確認済みを保つ |
+| `feature/sprint-N-xxx` | Sprint作業 | Sprint開始時に master から切る。完了・検証後に master へマージ |
+| `ui/xxx` | UI改善・デザイン変更 | フルデザイン変更など独立タスク用。master へのマージは実機検証後のみ |
+| `experiment/xxx` | 試験的変更 | マージしない可能性あり。検証後に明示的に判断する |
+
+```bash
+# Sprint 開始時
+git checkout -b feature/sprint-8-ui-redesign
+
+# Sprint 完了・実機検証後
+git checkout master
+git merge --no-ff feature/sprint-8-ui-redesign
+git branch -d feature/sprint-8-ui-redesign
+```
+
+### コミットのタイミング
+
+- **Sprint 完了時**: 実機検証 OK の直後に必ずコミット（master へのマージコミット）
+- **UI 改善作業中**: 各作業単位（コンポーネント1つ分など）でこまめにコミット。「戻せる粒度」を意識する
+- **ドキュメント変更**: コード変更と分けてコミットしてよい
+- 作業途中の壊れた状態でコミットしない（`gradlew test` 通過後にコミット）
+
+### コミットメッセージ規則
+
+```
+<種別>: <概要（日本語・50文字以内）>
+
+<背景・理由（任意）>
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+```
+
+種別: `feat`（機能追加）/ `fix`（バグ修正）/ `ui`（UI変更）/ `refactor` / `docs` / `chore`
+
+### .gitignore の原則（全プロジェクト共通）
+
+必ず除外するもの:
+
+| 種別 | パターン例 |
+|---|---|
+| センシティブ情報 | `*.jks` `*.keystore` `keystore.properties` `local.properties` `*.env` |
+| ビルド成果物 | `build/` `app/build/` `.gradle/` `*.apk` `*.aab` |
+| IDE 設定 | `.idea/` `*.iml` |
+| 外部ライブラリ（独自 .git あり） | 個別に除外（例: `app/src/main/cpp/oboe/`） |
+| OS 生成ファイル | `.DS_Store` `Thumbs.db` `desktop.ini` |
+
+センシティブファイルをコミットしてしまった場合は `git filter-branch` または `git filter-repo` で履歴から除去が必要。**コミット前に必ず `git status` で除外確認する。**
+
+### ロールバック手順
+
+```bash
+# UI 変更を特定ファイルだけ master 時点に戻す
+git checkout master -- app/src/main/kotlin/com/djapp/presentation/
+
+# 特定コミット時点の1ファイルを復元
+git checkout <commit-hash> -- <ファイルパス>
+
+# 作業ブランチごと破棄して master に戻る
+git checkout master
+git branch -D ui/failed-experiment
+
+# 直前のコミットを取り消す（変更内容は残す）
+git reset --soft HEAD~1
+
+# コミット履歴を確認
+git log --oneline --graph
+```
+
+### このプロジェクト固有の注意
+
+- `app/src/main/cpp/oboe/` は独自 `.git` を持つため追跡対象外。ビルドには手動配置が必要
+- `dj-app-release.jks` は `.gitignore` で除外済み。絶対にコミットしない
 
 ---
 
