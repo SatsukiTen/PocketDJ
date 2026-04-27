@@ -4,14 +4,20 @@ import android.Manifest
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -132,56 +138,66 @@ private fun LibraryHeader(
         if (query != localQuery) localQuery = query
     }
 
-    Row(
-        modifier            = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
-        verticalAlignment   = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        // 検索バー
-        TextField(
-            value         = localQuery,
-            onValueChange = { text -> localQuery = text; onSearch(text) },
-            modifier      = Modifier.weight(1f),
-            placeholder   = { Text("曲名 / アーティストで検索") },
-            leadingIcon   = { Icon(Icons.Default.Search, contentDescription = null) },
-            trailingIcon  = if (localQuery.isNotEmpty()) {
-                { IconButton(onClick = { onSearch("") }) {
-                    Icon(Icons.Default.Close, contentDescription = "検索クリア")
-                }}
-            } else null,
-            singleLine    = true,
-            colors        = TextFieldDefaults.colors(
-                focusedContainerColor   = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor   = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-            ),
-        )
-
-        // ソートボタン
-        Box {
-            IconButton(onClick = { showSortMenu = true }) {
-                Icon(Icons.AutoMirrored.Filled.Sort, contentDescription = "並び替え")
-            }
-            DropdownMenu(
-                expanded        = showSortMenu,
-                onDismissRequest = { showSortMenu = false },
-            ) {
-                SortOrder.entries.forEach { order ->
-                    DropdownMenuItem(
-                        text    = { Text(order.label()) },
-                        onClick = { onSort(order); showSortMenu = false },
-                        trailingIcon = if (order == sortOrder) {
-                            { Text("✓", color = MaterialTheme.colorScheme.primary) }
-                        } else null,
-                    )
-                }
+    Column(modifier = Modifier.fillMaxWidth()) {
+        // タイトル行
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = "SELECT TRACK",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.weight(1f),
+            )
+            IconButton(onClick = onDismiss) {
+                Icon(Icons.Default.Close, contentDescription = "閉じる")
             }
         }
-
-        // 閉じるボタン（UC-008 代替フロー A3）
-        IconButton(onClick = onDismiss) {
-            Icon(Icons.Default.Close, contentDescription = "閉じる")
+        // 検索行
+        Row(
+            modifier            = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
+            verticalAlignment   = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            TextField(
+                value         = localQuery,
+                onValueChange = { text -> localQuery = text; onSearch(text) },
+                modifier      = Modifier.weight(1f),
+                placeholder   = { Text("曲名 / アーティストで検索") },
+                leadingIcon   = { Icon(Icons.Default.Search, contentDescription = null) },
+                trailingIcon  = if (localQuery.isNotEmpty()) {
+                    { IconButton(onClick = { onSearch("") }) {
+                        Icon(Icons.Default.Close, contentDescription = "検索クリア")
+                    }}
+                } else null,
+                singleLine    = true,
+                colors        = TextFieldDefaults.colors(
+                    focusedContainerColor   = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent,
+                    focusedIndicatorColor   = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                ),
+            )
+            Box {
+                IconButton(onClick = { showSortMenu = true }) {
+                    Icon(Icons.AutoMirrored.Filled.Sort, contentDescription = "並び替え")
+                }
+                DropdownMenu(
+                    expanded        = showSortMenu,
+                    onDismissRequest = { showSortMenu = false },
+                ) {
+                    SortOrder.entries.forEach { order ->
+                        DropdownMenuItem(
+                            text    = { Text(order.label()) },
+                            onClick = { onSort(order); showSortMenu = false },
+                            trailingIcon = if (order == sortOrder) {
+                                { Text("✓", color = MaterialTheme.colorScheme.primary) }
+                            } else null,
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -204,25 +220,45 @@ private fun TrackList(
 
 @Composable
 private fun TrackListItem(track: Track, onClick: () -> Unit) {
-    Column(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
+            .height(64.dp)
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp),
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(
-            text     = track.title,
-            style    = MaterialTheme.typography.bodyMedium,
-            color    = MaterialTheme.colorScheme.onSurface,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
-        Text(
-            text  = "${track.artist}  •  ${track.durationMs.toMinutesSeconds()}",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-        )
+        // アルバムアート円形プレースホルダー
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .size(40.dp)
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh, CircleShape),
+        ) {
+            Text(
+                text  = track.title.firstOrNull()?.uppercase() ?: "?",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        Spacer(Modifier.width(12.dp))
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(3.dp),
+        ) {
+            Text(
+                text     = track.title,
+                style    = MaterialTheme.typography.bodyMedium,
+                color    = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Text(
+                text  = "${track.artist}  •  ${track.durationMs.toMinutesSeconds()}",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
     }
 }
 

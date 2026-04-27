@@ -37,3 +37,6 @@ target_link_libraries(djapp
     mediandk      # AMediaExtractor / AMediaCodec
     OpenSLES
 )
+
+# Android 15+ (API 35) の 16KB ページサイズ要件に対応
+target_link_options(djapp PRIVATE "-Wl,-z,max-page-size=16384")

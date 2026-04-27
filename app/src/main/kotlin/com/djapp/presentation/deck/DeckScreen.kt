@@ -51,6 +51,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.foundation.border
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -111,12 +113,17 @@ fun DeckPanel(
         MaterialTheme.colorScheme.primary
     else
         MaterialTheme.colorScheme.secondary
+    val deckFill = if (deckId == DeckId.A)
+        MaterialTheme.colorScheme.primaryContainer
+    else
+        MaterialTheme.colorScheme.secondaryContainer
 
     Column(
         modifier = modifier
             .fillMaxHeight()
+            .border(1.dp, deckColor.copy(alpha = 0.20f), RoundedCornerShape(12.dp))
             .background(
-                color = MaterialTheme.colorScheme.surface,
+                color = MaterialTheme.colorScheme.surfaceContainerLow,
                 shape = RoundedCornerShape(12.dp),
             )
             .padding(horizontal = 8.dp, vertical = 6.dp),
@@ -313,15 +320,25 @@ fun DeckPanel(
                             )
                         }
                         Spacer(Modifier.width(4.dp))
+                        val isPlaying = deckState.isPlaying && deckState.track != null
+                        val playBg = when {
+                            isPlaying -> deckFill
+                            deckState.track != null -> MaterialTheme.colorScheme.surfaceContainerHigh
+                            else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
+                        }
+                        val playMod = if (isPlaying)
+                            Modifier.drawBehind {
+                                drawCircle(deckFill.copy(alpha = 0.35f), radius = size.minDimension / 2f + 10.dp.toPx())
+                            }
+                        else if (deckState.track != null)
+                            Modifier.border(1.dp, deckColor.copy(alpha = 0.40f), CircleShape)
+                        else Modifier
                         Box(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier
                                 .size(44.dp)
-                                .background(
-                                    color = if (deckState.track != null) deckColor
-                                    else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
-                                    shape = CircleShape,
-                                )
+                                .then(playMod)
+                                .background(color = playBg, shape = CircleShape)
                                 .clickable(enabled = deckState.track != null) {
                                     if (deckState.isPlaying) onPause() else onPlay()
                                 },
@@ -359,8 +376,8 @@ fun DeckPanel(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(4.dp))
                                 .background(
-                                    if (selected) deckColor
-                                    else MaterialTheme.colorScheme.surfaceVariant,
+                                    if (selected) deckFill
+                                    else MaterialTheme.colorScheme.surfaceContainerHigh,
                                 )
                                 .clickable { onScratchModeChange(mode) }
                                 .padding(horizontal = 8.dp, vertical = 3.dp),
@@ -486,7 +503,7 @@ private fun RotaryKnob(
 ) {
     val currentGain   by rememberUpdatedState(gainDb)
     val bgArcColor     = Color.White.copy(alpha = 0.12f)
-    val knobColor      = MaterialTheme.colorScheme.surfaceVariant
+    val knobColor      = MaterialTheme.colorScheme.surfaceContainerHigh
     val errorColor     = MaterialTheme.colorScheme.error
     val isKill         = gainDb <= -60f
     val activeColor    = if (isKill) errorColor else accentColor
@@ -704,7 +721,7 @@ private fun ManualLoopSection(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
                         .clip(RoundedCornerShape(4.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                         .clickable(enabled = enabled) { onSetLoopIn() }
                         .padding(horizontal = 10.dp, vertical = 3.dp),
                 ) {
@@ -731,7 +748,7 @@ private fun LoopChipButton(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .clip(RoundedCornerShape(4.dp))
-            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
             .clickable(enabled = enabled) { onClick() }
             .padding(horizontal = 8.dp, vertical = 3.dp),
     ) {
@@ -755,7 +772,7 @@ private fun NudgeChipButton(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .clip(RoundedCornerShape(3.dp))
-            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f))
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.7f))
             .clickable(enabled = enabled) { onClick() }
             .padding(horizontal = 5.dp, vertical = 2.dp),
     ) {
@@ -782,9 +799,9 @@ fun WaveformView(
     onSeek: ((Float) -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
-    val bgColor         = Color(0xFF1E1E1E)
-    val waveColorPast   = accentColor.copy(alpha = 0.8f)
-    val waveColorFuture = accentColor.copy(alpha = 0.25f)
+    val bgColor         = MaterialTheme.colorScheme.surfaceContainerLowest
+    val waveColorPast   = accentColor.copy(alpha = 0.85f)
+    val waveColorFuture = accentColor.copy(alpha = 0.22f)
     val playheadColor   = Color.White
 
     val seekModifier = if (onSeek != null && durationSec > 0f) {
@@ -977,8 +994,8 @@ private fun ChopButton(
         modifier = modifier
             .clip(shape)
             .background(
-                if (isPressed && enabled) accentColor.copy(alpha = 0.5f)
-                else accentColor.copy(alpha = 0.15f),
+                if (isPressed && enabled) accentColor.copy(alpha = 0.45f)
+                else accentColor.copy(alpha = 0.12f),
             )
             .pointerInput(enabled) {
                 if (!enabled) return@pointerInput
@@ -995,7 +1012,7 @@ private fun ChopButton(
     ) {
         Text(
             text = label,
-            fontSize = 20.sp,
+            fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             color = if (enabled) accentColor else accentColor.copy(alpha = 0.3f),
         )
@@ -1017,7 +1034,9 @@ private fun VelocityWheelScratch(
 ) {
     var rotationDeg by remember { mutableFloatStateOf(0f) }
 
-    val rimColor    = if (enabled) accentColor.copy(alpha = 0.8f) else Color.Gray.copy(alpha = 0.3f)
+    val wheelBg     = MaterialTheme.colorScheme.surfaceContainerLowest
+    val hubColor    = MaterialTheme.colorScheme.surfaceContainerHigh
+    val rimColor    = if (enabled) accentColor.copy(alpha = 0.85f) else Color.Gray.copy(alpha = 0.3f)
     val grooveColor = if (enabled) accentColor.copy(alpha = 0.12f) else Color.Gray.copy(alpha = 0.06f)
     val dotColor    = if (enabled) accentColor else Color.Gray.copy(alpha = 0.3f)
 
@@ -1053,7 +1072,7 @@ private fun VelocityWheelScratch(
         val cy = size.height / 2f
         val r  = size.minDimension / 2f
 
-        drawCircle(color = Color(0xFF1E1E1E), radius = r)
+        drawCircle(color = wheelBg, radius = r)
         drawCircle(color = rimColor, radius = r, style = Stroke(width = r * 0.10f))
 
         for (factor in listOf(0.78f, 0.56f, 0.34f)) {
@@ -1074,7 +1093,7 @@ private fun VelocityWheelScratch(
             radius = r * 0.09f,
             center = Offset(cx + r * 0.72f * cos(rad), cy + r * 0.72f * sin(rad)),
         )
-        drawCircle(color = Color(0xFF444444), radius = r * 0.12f)
+        drawCircle(color = hubColor, radius = r * 0.12f)
     }
 }
 
@@ -1094,8 +1113,9 @@ private fun FullStripScratch(
     var needleXPx by remember { mutableFloatStateOf(-1f) }
     var isActive  by remember { mutableStateOf(false) }
 
-    val grooveColor = if (enabled) accentColor.copy(alpha = 0.08f) else Color.Gray.copy(alpha = 0.04f)
-    val rimColor    = if (enabled) accentColor.copy(alpha = 0.4f)  else Color.Gray.copy(alpha = 0.15f)
+    val stripBg     = MaterialTheme.colorScheme.surfaceContainerLowest
+    val grooveColor = if (enabled) accentColor.copy(alpha = 0.10f) else Color.Gray.copy(alpha = 0.04f)
+    val rimColor    = if (enabled) accentColor.copy(alpha = 0.45f) else Color.Gray.copy(alpha = 0.15f)
 
     Canvas(
         modifier = modifier
@@ -1131,7 +1151,7 @@ private fun FullStripScratch(
         val w = size.width
         val h = size.height
 
-        drawRect(color = Color(0xFF1E1E1E))
+        drawRect(color = stripBg)
 
         // グルーブライン
         for (i in 1..5) {

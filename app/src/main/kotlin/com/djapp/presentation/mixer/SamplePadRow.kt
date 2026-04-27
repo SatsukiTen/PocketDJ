@@ -2,6 +2,8 @@ package com.djapp.presentation.mixer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -77,21 +79,31 @@ private fun SamplePadButton(
     modifier: Modifier = Modifier,
 ) {
     val padColor = MaterialTheme.colorScheme.tertiary
+    val padContainer = MaterialTheme.colorScheme.tertiaryContainer
 
     val bgColor = when {
-        !pad.isLoaded -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-        pad.isPlaying -> padColor.copy(alpha = 0.85f)
-        else          -> padColor.copy(alpha = 0.25f)
+        !pad.isLoaded -> MaterialTheme.colorScheme.surfaceContainerHigh
+        pad.isPlaying -> padColor.copy(alpha = 0.88f)
+        else          -> padContainer.copy(alpha = 0.25f)
     }
     val textColor = when {
         !pad.isLoaded -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
         pad.isPlaying -> Color.White
         else          -> padColor
     }
+    val glowMod = if (pad.isPlaying) Modifier.drawBehind {
+        drawRoundRect(
+            color        = padColor.copy(alpha = 0.40f),
+            cornerRadius = CornerRadius(10.dp.toPx()),
+            topLeft      = androidx.compose.ui.geometry.Offset(-8.dp.toPx(), -8.dp.toPx()),
+            size         = androidx.compose.ui.geometry.Size(size.width + 16.dp.toPx(), size.height + 16.dp.toPx()),
+        )
+    } else Modifier
 
     Box(
         modifier = modifier
-            .height(36.dp)
+            .height(44.dp)
+            .then(glowMod)
             .clip(RoundedCornerShape(6.dp))
             .background(bgColor)
             .clickable(enabled = pad.isLoaded) { onTogglePlay() },
