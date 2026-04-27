@@ -21,7 +21,7 @@ android {
     compileSdk  = 36
 
     defaultConfig {
-        applicationId   = "com.djapp"
+        applicationId   = "io.github.satsukiten.pocketdj"
         minSdk          = 26
         targetSdk       = 36
         versionCode     = 1
