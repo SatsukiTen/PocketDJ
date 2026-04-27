@@ -1,0 +1,25 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+app/build/
+
+# ===== Secrets (絶対にコミットしない) =====
+*.jks
+*.keystore
+keystore.properties
+
+# ===== 外部ライブラリ（ローカルに手動配置）=====
+# Oboe: add_subdirectory 方式で統合済み（独自の .git を持つため除外）
+# ビルドには app/src/main/cpp/oboe/ が必要（git clone 後に手動配置）
+app/src/main/cpp/oboe/
+
+# ===== OS =====
+Thumbs.db
+desktop.ini

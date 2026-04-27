@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004d67",
+                        "surface-bright": "#393939",
+                        "inverse-surface": "#e5e2e1",
+                        "on-error": "#690005",
+                        "on-background": "#e5e2e1",
+                        "inverse-primary": "#006688",
+                        "on-surface-variant": "#bdc8d0",
+                        "on-secondary-container": "#00302c",
+                        "primary-fixed-dim": "#75d1ff",
+                        "surface-tint": "#75d1ff",
+                        "primary-fixed": "#c2e8ff",
+                        "on-tertiary": "#4b1b58",
+                        "primary-container": "#4fc3f7",
+                        "tertiary-container": "#dfa2e8",
+                        "inverse-on-surface": "#313030",
+                        "on-secondary-fixed": "#00201d",
+                        "tertiary-fixed": "#fdd6ff",
+                        "primary": "#9adbff",
+                        "on-primary": "#003548",
+                        "surface-dim": "#131313",
+                        "outline-variant": "#3e484f",
+                        "on-secondary-fixed-variant": "#00504a",
+                        "surface": "#131313",
+                        "surface-container-high": "#2a2a2a",
+                        "outline": "#889299",
+                        "surface-container-highest": "#353534",
+                        "on-primary-fixed": "#001e2b",
+                        "on-tertiary-fixed": "#340141",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#353534",
+                        "on-tertiary-container": "#663471",
+                        "secondary-fixed": "#8ef4e9",
+                        "secondary": "#71d7cd",
+                        "background": "#131313",
+                        "on-secondary": "#003733",
+                        "secondary-fixed-dim": "#71d7cd",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#004e69",
+                        "surface-container": "#201f1f",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary": "#f8c0ff",
+                        "error-container": "#93000a",
+                        "secondary-container": "#32a097",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-fixed-dim": "#efb1f9",
+                        "on-tertiary-fixed-variant": "#643370",
+                        "on-surface": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "sm": "12px",
+                        "xl": "32px",
+                        "base": "8px",
+                        "margin-edge": "16px"
+                    },
+                    "fontFamily": {
+                        "technical-data": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Space Grotesk"],
+                        "label-md": ["Space Grotesk"],
+                        "headline-sm": ["Space Grotesk"],
+                        "display-md": ["Space Grotesk"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "technical-data": ["18px", {"lineHeight": "24px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["10px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-md": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden h-screen flex flex-col">
+<!-- Top Navigation Overlay Shell -->
+<header class="bg-neutral-900/90 backdrop-blur-xl border-white/10 border-b flex justify-between items-center h-14 px-4 w-full z-50 sticky top-0">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-all duration-150 hover:bg-white/5 p-2 rounded-full">
+<span class="material-symbols-outlined text-sky-400">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Select Track</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="active:scale-95 transition-all duration-150 hover:bg-white/5 p-2 rounded-full">
+<span class="material-symbols-outlined text-neutral-500">search</span>
+</button>
+<button class="active:scale-95 transition-all duration-150 hover:bg-white/5 p-2 rounded-full">
+<span class="material-symbols-outlined text-neutral-500">settings</span>
+</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="flex-1 overflow-y-auto pb-20 custom-scrollbar">
+<!-- Quick Filters / Genre Chips -->
+<section class="px-4 py-6 flex gap-2 overflow-x-auto no-scrollbar">
+<button class="bg-sky-400/20 text-sky-400 font-label-md text-label-md px-4 py-2 rounded-full border border-sky-400/30 whitespace-nowrap">All Tracks</button>
+<button class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-4 py-2 rounded-full whitespace-nowrap">Techno</button>
+<button class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-4 py-2 rounded-full whitespace-nowrap">House</button>
+<button class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-4 py-2 rounded-full whitespace-nowrap">Drum &amp; Bass</button>
+<button class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-4 py-2 rounded-full whitespace-nowrap">Acid</button>
+</section>
+<!-- Track List -->
+<div class="px-4 space-y-1">
+<!-- Track Row 1 (Active/Selected Simulation) -->
+<div class="bg-[#1E1E1E] border-l-4 border-sky-400 p-3 rounded-r-lg flex items-center justify-between group active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-4">
+<div class="relative w-12 h-12 rounded bg-surface-container-highest overflow-hidden shrink-0">
+<img class="w-full h-full object-cover opacity-80" data-alt="abstract vibrant waveform visualization with neon blue and purple lights on black background high fidelity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDphr0yk-oMBrMKmJwMcXFFyWGgmbueKhjLG9COIJAwiS6Bp4eN7TC1wPrSHvCF9yJCoq2_tjYyLL9f9lTLXP2pAVI746_3bK6C0Y3JH8Oh7nXDGmDHmzPO5lJcosljfWixb8rfjKi-ljpUngB7d1KHVLhrm69lPO8DA9t7SCPtanWBagNBc3qMjMe4BKaZFy1PL8Bmo6wWYbBdbWv1e10qg3yVUso-qjmEM28UC_TheacX3ET5lfLH6M8g_6O9tamnUolPdUoHEdQ9"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/40">
+<span class="material-symbols-outlined text-sky-400 text-xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Techno Soul</h3>
+<p class="font-body-md text-label-sm text-neutral-400">DJ Nova</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-technical-data text-label-sm text-sky-400">128 BPM</span>
+<span class="font-technical-data text-label-sm text-neutral-500">4:20</span>
+</div>
+</div>
+<!-- Track Row 2 -->
+<div class="bg-[#1E1E1E] p-3 rounded-lg flex items-center justify-between hover:bg-surface-container-highest transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-highest overflow-hidden shrink-0 border border-white/5">
+<img class="w-full h-full object-cover" data-alt="deep indigo and violet abstract geometric patterns with subtle noise texture professional audio aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY2rEgCVhU-kCzuvCmDwAOXnpVCe_uRmtbsxQCATWIiHBaWDWXgBLlP63nusYQd0snIHN-9vxcQvQYlsaM0QukMH6W4vsYosbPYxcUcqHtmJMEO_o_DkXfXBf75-GzUxKK7A8tY9sPmrDDMn2ps2Vgox8-4WO89gpvPQgPZcEyn5iHTcJEP1jS2ptY-qxnt_7E_xJp7XYWUsLadLzUbgTQ4Celz5NXppqjicGo4avGOaUTYiInEXfbcxs57y2qU_oE6zg1wdU39U70"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Deep Bass</h3>
+<p class="font-body-md text-label-sm text-neutral-400">Bassline</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-technical-data text-label-sm text-neutral-400">124 BPM</span>
+<span class="font-technical-data text-label-sm text-neutral-500">5:12</span>
+</div>
+</div>
+<!-- Track Row 3 -->
+<div class="bg-[#1E1E1E] p-3 rounded-lg flex items-center justify-between hover:bg-surface-container-highest transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-highest overflow-hidden shrink-0 border border-white/5">
+<img class="w-full h-full object-cover" data-alt="blurred stage lights from a dark club environment with red and gold flares cinematic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN-DA3kLyGEX3i41AE8G2CSJMUSDVSr6YZOtOD3cNNYbsTsVOOq1wXpXHbQwot8Vnxeh18JlwAqKCUtfWRT-Eqv51ZCbcPc9n8wbVu_62tnFfa4CtYCfsriEcbnBnBTscU6y3SoVup7UU0WHQOdzEevPQ8MVP4Xce9IV4FEl2gZ8WJuFEBVJRggXSLfU9GB4osnReopy5O_cYjyKc-C-DrxeSXET4hW27IoYhGOrZ6dNyuTlXB_vzWS8gHKzOpNFxrs5g6ZDJ0S2rp"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Midnight Echo</h3>
+<p class="font-body-md text-label-sm text-neutral-400">Luna Rift</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-technical-data text-label-sm text-neutral-400">130 BPM</span>
+<span class="font-technical-data text-label-sm text-neutral-500">3:45</span>
+</div>
+</div>
+<!-- Track Row 4 -->
+<div class="bg-[#1E1E1E] p-3 rounded-lg flex items-center justify-between hover:bg-surface-container-highest transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-highest overflow-hidden shrink-0 border border-white/5">
+<img class="w-full h-full object-cover" data-alt="minimalist graphic design with sharp white lines on a charcoal background electronic music style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQvTAqyt4s1iGF5MspmujgNv6o1PQzj_dg5H-VjXau6keMlAvcpP-l0xmvIqZpNOBPF9dqJ0Bb6MqZcWABXwIO8RkQ1P0xAKhIvMHMHHsuk6RjdGMvqlWpa63XkO8SVbM2rBlfKJWY7enD0ejctRHyE9BRAwpvOcnkhmTO6pzoBMuAOQ92Yezk6l-xkHnrWTI6QbJRetr1WjXF0Ae_fkQx8_FeeubrQO1qwUXyP_hwDb2BoFhMW5VlA4lYd06taqI0jsnMDqvg8_9u"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Synthesized Era</h3>
+<p class="font-body-md text-label-sm text-neutral-400">Frequency X</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-technical-data text-label-sm text-neutral-400">126 BPM</span>
+<span class="font-technical-data text-label-sm text-neutral-500">6:02</span>
+</div>
+</div>
+<!-- Track Row 5 -->
+<div class="bg-[#1E1E1E] p-3 rounded-lg flex items-center justify-between hover:bg-surface-container-highest transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-highest overflow-hidden shrink-0 border border-white/5">
+<img class="w-full h-full object-cover" data-alt="top down view of a vintage synthesizer knobs and sliders with soft industrial lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGuqPT6OP7ZZZ0MYmNcI4w-n3rSvodsbe3aIfb1Az3dnHBVhj9JiZGFL2prdCa-tT1uovxU4idQ66tM1F-Ab2guoNtLjeqqSnlWp0bgR_unezklZ4Qj6uWrT9Rc1mzYCAyqGCmoFkx4gxNwlai9hriA8dhzMHOzibn0JLktb4J8Cu-Ai6gKcYPcIrNR42ExqfFOeFeo83s63fpimceMZpVSce0EJuN7hG-uRSr9NHhbS6N5LavBX5KYXHys76POTIR9FISEp5IkSMi"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Analog Dreams</h3>
+<p class="font-body-md text-label-sm text-neutral-400">The Oscillator</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-technical-data text-label-sm text-neutral-400">122 BPM</span>
+<span class="font-technical-data text-label-sm text-neutral-500">4:58</span>
+</div>
+</div>
+<!-- Track Row 6 -->
+<div class="bg-[#1E1E1E] p-3 rounded-lg flex items-center justify-between hover:bg-surface-container-highest transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-highest overflow-hidden shrink-0 border border-white/5">
+<img class="w-full h-full object-cover" data-alt="macro photograph of a vinyl record groove with sharp dramatic lighting and dust particles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwBFB5T3biJfhgFW9QPdzks1jRyAtyQCCUrc55BqdiOXlZBw-zsnXUyMPJYNtDVqpttbGINe7XGV69itKo-FNPmJcTIqw3HB2ceKu_gpipQLY51UXLDeis_f9BR_sfdveldqu935h_1_M1Ud9evVseiKbcs7xMjckUu5f1Rp8_np3jhc7FQgM_QttNMIUaVn3etYH_3nDdDutFMeUVFPU5erpjL8MU6bm7t1b9HwJLFruZR0bynzQISVzYE_AK79Tvq2VugKd9BgU9"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Static Flow</h3>
+<p class="font-body-md text-label-sm text-neutral-400">Vinyl Junkie</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-technical-data text-label-sm text-neutral-400">129 BPM</span>
+<span class="font-technical-data text-label-sm text-neutral-500">3:55</span>
+</div>
+</div>
+<!-- Track Row 7 -->
+<div class="bg-[#1E1E1E] p-3 rounded-lg flex items-center justify-between hover:bg-surface-container-highest transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-highest overflow-hidden shrink-0 border border-white/5">
+<img class="w-full h-full object-cover" data-alt="colorful laser beams cutting through thick fog in a futuristic performance venue" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLlUQQ-ojrYZNUcq4TXh6Eon9EDOf7Jfb__SaP5AksTn8gsb1KcqB6M01N22ghm-rGhEF4e6lvy4KafQP41za1b2tWRMkXdzSF88TjBrhP5fFPIy1lj-u74XJw_36ByAxkqhDiLw8bPVHNZSSv6ycLXED_pX3MvEgXMgWVyPv5wSdavSF7Vw4X8PP2MWFDp9YBWgO954KePE-kV9fuNwtiOmxPyCzBvNJToK52FwZt5b7RiwmKg1AbYmdVpQIPumDxsXp16nfHdmvu"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Prism Burst</h3>
+<p class="font-body-md text-label-sm text-neutral-400">Optic Acid</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-technical-data text-label-sm text-neutral-400">135 BPM</span>
+<span class="font-technical-data text-label-sm text-neutral-500">4:14</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Inactive context for library picker) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 px-2 pb-safe bg-neutral-900/95 backdrop-blur-2xl border-white/10 border-t shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<button class="flex flex-col items-center justify-center text-neutral-500 active:scale-90 transition-transform duration-200 hover:text-neutral-300">
+<span class="material-symbols-outlined mb-1">album</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-tighter">Decks</span>
+</button>
+<button class="flex flex-col items-center justify-center text-sky-400 bg-sky-400/10 rounded-xl px-3 py-1 shadow-[0_0_15px_rgba(79,195,247,0.2)] active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1">library_music</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-tighter">Library</span>
+</button>
+<button class="flex flex-col items-center justify-center text-neutral-500 active:scale-90 transition-transform duration-200 hover:text-neutral-300">
+<span class="material-symbols-outlined mb-1">grid_view</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-tighter">Samples</span>
+</button>
+<button class="flex flex-col items-center justify-center text-neutral-500 active:scale-90 transition-transform duration-200 hover:text-neutral-300">
+<span class="material-symbols-outlined mb-1">tune</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-tighter">Mixer</span>
+</button>
+</nav>
+<!-- FAB for adding new source -->
+<button class="fixed right-6 bottom-20 w-14 h-14 rounded-2xl bg-sky-400 text-on-primary-container shadow-lg flex items-center justify-center active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</body></html>

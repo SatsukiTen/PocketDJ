@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PocketDJ</string>
+    <string name="deck_a">DECK A</string>
+    <string name="deck_b">DECK B</string>
+    <string name="load_track">Load Track</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="sync">SYNC</string>
+    <string name="bpm_unknown">--.-</string>
+    <string name="permission_required">音楽ファイルへのアクセス権限が必要です</string>
+    <string name="no_tracks_found">音楽ファイルが見つかりません</string>
+</resources>

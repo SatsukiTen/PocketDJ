@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Vinyl record disc -->
+    <path
+        android:fillColor="#1E1E1E"
+        android:pathData="M18,54 A36,36 0 1,0 90,54 A36,36 0 1,0 18,54 Z"/>
+
+    <!-- Outer edge subtle highlight -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#505050"
+        android:strokeWidth="0.8"
+        android:pathData="M18,54 A36,36 0 1,0 90,54 A36,36 0 1,0 18,54 Z"/>
+
+    <!-- Groove rings -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#383838"
+        android:strokeWidth="1.1"
+        android:pathData="M24,54 A30,30 0 1,0 84,54 A30,30 0 1,0 24,54 Z"/>
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#383838"
+        android:strokeWidth="1.1"
+        android:pathData="M30,54 A24,24 0 1,0 78,54 A24,24 0 1,0 30,54 Z"/>
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#383838"
+        android:strokeWidth="1.1"
+        android:pathData="M37,54 A17,17 0 1,0 71,54 A17,17 0 1,0 37,54 Z"/>
+
+    <!-- Label circle (deep purple base) -->
+    <path
+        android:fillColor="#5E00D4"
+        android:pathData="M41,54 A13,13 0 1,0 67,54 A13,13 0 1,0 41,54 Z"/>
+
+    <!-- Label upper half highlight -->
+    <path
+        android:fillColor="#7C4DFF"
+        android:pathData="M41,54 A13,13 0 0,1 67,54 Z"/>
+
+    <!-- Center spindle hole -->
+    <path
+        android:fillColor="#E8E8E8"
+        android:pathData="M51.5,54 A2.5,2.5 0 1,0 56.5,54 A2.5,2.5 0 1,0 51.5,54 Z"/>
+
+    <!-- Tonearm pivot body -->
+    <path
+        android:fillColor="#686868"
+        android:pathData="M78,20 A5,5 0 1,0 88,20 A5,5 0 1,0 78,20 Z"/>
+
+    <!-- Tonearm pivot center dot -->
+    <path
+        android:fillColor="#AAAAAA"
+        android:pathData="M81,20 A2,2 0 1,0 85,20 A2,2 0 1,0 81,20 Z"/>
+
+    <!-- Tonearm arm (curved) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#C4C4C4"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M83,25 Q77,37 70,50"/>
+
+    <!-- Needle tip -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M68,48 A2,2 0 1,0 72,48 A2,2 0 1,0 68,48 Z"/>
+
+</vector>
