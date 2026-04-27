@@ -145,9 +145,29 @@
 |---|---|---|---|---|
 | T-801 | メイン画面レイアウトの統合（全コンポーネント結合・UI調整） | — | Sprint 1〜7 | ✅ |
 | T-802 | レイテンシ実測（Pixel 8 Pro / Oboe計測API / 目標 20ms 以下） | Constitution §4 | T-801 | ✅ |
-| T-803 | 1000曲ライブラリのパフォーマンス確認 | non-functional.md | T-801 | ⬜ |
-| T-804 | 30分連続再生の安定性テスト | non-functional.md | T-801 | ⬜ |
+| T-803 | 1000曲ライブラリのパフォーマンス確認 | non-functional.md | T-801 | ✅ |
+| T-804 | 30分連続再生の安定性テスト | non-functional.md | T-801 | ✅ |
 | T-805 | Google Playストア向けリリースビルド設定（ProGuard・署名・AAB） | — | T-801 | ✅ |
+
+---
+
+## Sprint 9: UI デザイン改善
+
+> Stitch 生成モックアップを部分採用し、レイアウト構造を維持したままビジュアル品質を向上させる。
+> 仕様詳細: `DESIGN.md` 参照。参照ビジュアル: `design-reference/stitch-export/*/screen.png`
+
+| ID | タイトル | 仕様 | 依存 | 状態 | 往復数 |
+|---|---|---|---|---|---|
+| T-901 | Google Fonts 依存追加（`libs.versions.toml` + `build.gradle.kts`） | DESIGN.md §タイポグラフィ | — | ⬜ | — |
+| T-902 | `Theme.kt`：Stitch カラーパレット全色を適用 | DESIGN.md §カラートークン | — | ⬜ | — |
+| T-903 | `Typography.kt`：Space Grotesk 導入・スタイル定義 | DESIGN.md §タイポグラフィ | T-901, T-902 | ⬜ | — |
+| T-904 | `DeckScreen.kt`：カード枠線・EQ ノブ・Play ボタングローのビジュアル更新 | DESIGN.md §S8-03〜05 | T-902, T-903 | ⬜ | — |
+| T-905 | `DeckScreen.kt`：スクラッチ・波形・ループ・ピッチチップのビジュアル更新 | DESIGN.md §S8-06〜08 | T-904 | ⬜ | — |
+| T-906 | `MainScreen.kt`：WaveformStrip アクセントカラーを `primaryContainer`/`secondaryContainer` に変更 | DESIGN.md §S8-07 | T-902 | ⬜ | — |
+| T-907 | `SamplePadRow.kt`：高さ 36dp→44dp、再生中グローエフェクト追加 | DESIGN.md §S8-09 | T-902 | ⬜ | — |
+| T-908 | `LibraryBrowserScreen.kt`：「Select Track」タイトル・アルバムアート円形プレースホルダー追加 | DESIGN.md §S8-10 | T-902 | ⬜ | — |
+| T-909 | `./gradlew test` 全件 PASS 確認 + `assembleDebug` ビルド通過確認 | — | T-901〜T-908 | ⬜ | — |
+| T-910 | **実機検証**（Pixel 8 Pro / UI 受入条件を目視確認） | DESIGN.md §変更スコープ | T-909 | ⬜ | — |
 
 ---
 
@@ -163,5 +183,6 @@
 | Sprint 5（EQ） | 7 | 7 | UC-005 |
 | Sprint 6（ループ・サンプリング） | 10 | 10 | UC-006 |
 | Sprint 7（スクラッチ） | 7 | 7 | UC-007 |
-| Sprint 8（統合） | 5 | 1 | — |
-| **合計** | **73** | **71** | |
+| Sprint 8（統合・品質） | 5 | 5 | — |
+| Sprint 9（UI デザイン改善） | 10 | 0 | DESIGN.md |
+| **合計** | **83** | **73** | |
