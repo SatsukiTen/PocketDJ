@@ -28,6 +28,7 @@ compose-material-icons-extended     = { group = "androidx.compose.material", nam
 compose-activity                    = { group = "androidx.activity", name = "activity-compose",            version = "1.9.3" }
 compose-ui-test-manifest            = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 compose-ui-test-junit4              = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+compose-google-fonts                = { group = "androidx.compose.ui", name = "ui-text-google-fonts" }
 
 # Lifecycle / ViewModel
 lifecycle-viewmodel-compose         = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }

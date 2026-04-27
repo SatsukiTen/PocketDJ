@@ -165,14 +165,14 @@ fun MainScreen(
                         WaveformStrip(
                             deckId      = DeckId.A,
                             deckState   = deckState.deckA,
-                            accentColor = MaterialTheme.colorScheme.primary,
+                            accentColor = MaterialTheme.colorScheme.primaryContainer,
                             onSeek      = { r -> deckViewModel.onIntent(DeckIntent.Seek(DeckId.A, r)) },
                             modifier    = Modifier.weight(1f),
                         )
                         WaveformStrip(
                             deckId      = DeckId.B,
                             deckState   = deckState.deckB,
-                            accentColor = MaterialTheme.colorScheme.secondary,
+                            accentColor = MaterialTheme.colorScheme.secondaryContainer,
                             onSeek      = { r -> deckViewModel.onIntent(DeckIntent.Seek(DeckId.B, r)) },
                             modifier    = Modifier.weight(1f),
                         )

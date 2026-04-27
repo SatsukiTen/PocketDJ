@@ -145,9 +145,48 @@
 |---|---|---|---|---|
 | T-801 | メイン画面レイアウトの統合（全コンポーネント結合・UI調整） | — | Sprint 1〜7 | ✅ |
 | T-802 | レイテンシ実測（Pixel 8 Pro / Oboe計測API / 目標 20ms 以下） | Constitution §4 | T-801 | ✅ |
-| T-803 | 1000曲ライブラリのパフォーマンス確認 | non-functional.md | T-801 | ⬜ |
-| T-804 | 30分連続再生の安定性テスト | non-functional.md | T-801 | ⬜ |
+| T-803 | 1000曲ライブラリのパフォーマンス確認 | non-functional.md | T-801 | ✅ |
+| T-804 | 30分連続再生の安定性テスト | non-functional.md | T-801 | ✅ |
 | T-805 | Google Playストア向けリリースビルド設定（ProGuard・署名・AAB） | — | T-801 | ✅ |
+
+---
+
+## Sprint 9: UI デザイン改善
+
+> Stitch 生成モックアップを部分採用し、レイアウト構造を維持したままビジュアル品質を向上させる。
+> 仕様詳細: `DESIGN.md` 参照。参照ビジュアル: `design-reference/stitch-export/*/screen.png`
+
+| ID | タイトル | 仕様 | 依存 | 状態 | 往復数 |
+|---|---|---|---|---|---|
+| T-901 | Google Fonts 依存追加（`libs.versions.toml` + `build.gradle.kts`） | DESIGN.md §タイポグラフィ | — | ✅ | 2 |
+| T-902 | `Theme.kt`：Stitch カラーパレット全色を適用 | DESIGN.md §カラートークン | — | ✅ | 2 |
+| T-903 | `Typography.kt`：Space Grotesk 導入・スタイル定義 | DESIGN.md §タイポグラフィ | T-901, T-902 | ✅ | 2 |
+| T-904 | `DeckScreen.kt`：カード枠線・EQ ノブ・Play ボタングローのビジュアル更新 | DESIGN.md §S8-03〜05 | T-902, T-903 | ✅ | 1 |
+| T-905 | `DeckScreen.kt`：スクラッチ・波形・ループ・ピッチチップのビジュアル更新 | DESIGN.md §S8-06〜08 | T-904 | ✅ | 1 |
+| T-906 | `MainScreen.kt`：WaveformStrip アクセントカラーを `primaryContainer`/`secondaryContainer` に変更 | DESIGN.md §S8-07 | T-902 | ✅ | 1 |
+| T-907 | `SamplePadRow.kt`：高さ 36dp→44dp、再生中グローエフェクト追加 | DESIGN.md §S8-09 | T-902 | ✅ | 1 |
+| T-908 | `LibraryBrowserScreen.kt`：「Select Track」タイトル・アルバムアート円形プレースホルダー追加 | DESIGN.md §S8-10 | T-902 | ✅ | 1 |
+| T-909 | `./gradlew test` 全件 PASS 確認 + `assembleDebug` ビルド通過確認 | — | T-901〜T-908 | ✅ | 1 |
+| T-910 | **実機検証**（Pixel 8 Pro / UI 受入条件を目視確認） | DESIGN.md §変更スコープ | T-909 | ✅ | 3 |
+| T-911 | `CMakeLists.txt`：16KB ページアライメント対応（`-Wl,-z,max-page-size=16384`） | Android 15+ 必須要件 | — | ✅ | 1 |
+| T-912 | Space Grotesk TTF を `res/font/` に同梱し `Typography.kt` をローカルフォント参照に変更 | DESIGN.md §タイポグラフィ | T-911 | ✅ | 2 |
+
+---
+
+## Sprint 10: Play Store 公開準備
+
+> Google Play Store への初回公開に必要な成果物を揃える。
+> 凡例: 🤖 = Claude 作業 / 👤 = ユーザー作業（Play Console・外部ツール）
+
+| ID | タイトル | 担当 | 依存 | 状態 | 往復数 |
+|---|---|---|---|---|---|
+| T-1001 | 署名済み AAB 生成（`bundleRelease`）・内容検証 | 🤖 | — | ✅ | 1 |
+| T-1002 | プライバシーポリシー HTML 作成・GitHub Pages 公開手順 | 🤖 | — | ✅ | 1 |
+| T-1003 | Play Store 用 512×512 アイコン PNG エクスポート手順 | 🤖 | — | ✅ | 1 |
+| T-1004 | アプリ説明文・メタデータ原稿作成（短文・長文・カテゴリ等） | 🤖 | — | ✅ | 1 |
+| T-1005 | Play Console: アプリ作成・AAB アップロード・内部テスト配布 | 👤 | T-1001〜T-1004 | ⬜ | — |
+| T-1006 | Play Console: コンテンツレーティング・データセーフティ回答 | 👤 | T-1005 | ⬜ | — |
+| T-1007 | Play Console: 製品版トラックへの昇格・審査提出 | 👤 | T-1006 | ⬜ | — |
 
 ---
 
@@ -163,5 +202,7 @@
 | Sprint 5（EQ） | 7 | 7 | UC-005 |
 | Sprint 6（ループ・サンプリング） | 10 | 10 | UC-006 |
 | Sprint 7（スクラッチ） | 7 | 7 | UC-007 |
-| Sprint 8（統合） | 5 | 1 | — |
-| **合計** | **73** | **71** | |
+| Sprint 8（統合・品質） | 5 | 5 | — |
+| Sprint 9（UI デザイン改善） | 12 | 12 | DESIGN.md |
+| Sprint 10（Play Store 公開） | 7 | 0 | — |
+| **合計** | **90** | **80** | |

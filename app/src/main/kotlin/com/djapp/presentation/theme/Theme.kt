@@ -5,16 +5,36 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-// DJアプリは暗い環境での使用を想定し、ダークテーマを基本とする
 private val DjDarkColorScheme = darkColorScheme(
-    primary         = Color(0xFFE53935),   // 赤：アクティブ要素（再生・Sync ON等）
-    onPrimary       = Color(0xFFFFFFFF),
-    secondary       = Color(0xFF1E88E5),   // 青：デッキB系の強調色
-    onSecondary     = Color(0xFFFFFFFF),
-    background      = Color(0xFF121212),   // 黒背景
-    onBackground    = Color(0xFFE0E0E0),
-    surface         = Color(0xFF1E1E1E),   // カード・パネル背景
-    onSurface       = Color(0xFFE0E0E0),
+    background               = Color(0xFF131313),
+    onBackground             = Color(0xFFE5E2E1),
+    surface                  = Color(0xFF131313),
+    onSurface                = Color(0xFFE5E2E1),
+    surfaceVariant           = Color(0xFF353534),
+    onSurfaceVariant         = Color(0xFFBDC8D0),
+    surfaceContainerLowest   = Color(0xFF0E0E0E),
+    surfaceContainerLow      = Color(0xFF1C1B1B),
+    surfaceContainer         = Color(0xFF201F1F),
+    surfaceContainerHigh     = Color(0xFF2A2A2A),
+    surfaceContainerHighest  = Color(0xFF353534),
+    primary                  = Color(0xFF9ADBFF),
+    onPrimary                = Color(0xFF003548),
+    primaryContainer         = Color(0xFF4FC3F7),
+    onPrimaryContainer       = Color(0xFF004E69),
+    secondary                = Color(0xFF71D7CD),
+    onSecondary              = Color(0xFF003733),
+    secondaryContainer       = Color(0xFF32A097),
+    onSecondaryContainer     = Color(0xFF00302C),
+    tertiary                 = Color(0xFFF8C0FF),
+    onTertiary               = Color(0xFF4B1B58),
+    tertiaryContainer        = Color(0xFFDFA2E8),
+    onTertiaryContainer      = Color(0xFF663471),
+    error                    = Color(0xFFFFB4AB),
+    onError                  = Color(0xFF690005),
+    errorContainer           = Color(0xFF93000A),
+    onErrorContainer         = Color(0xFFFFDAD6),
+    outline                  = Color(0xFF889299),
+    outlineVariant           = Color(0xFF3E484F),
 )
 
 @Composable
